@@ -6,11 +6,17 @@ if [ "$1" != "stop" ]; then
   docker network create vcf-net
   docker run -d --network vcf-net --name zookeeper zookeeper
   docker run -d --network vcf-net --name redis redis
-  docker run -d --network vcf-net --name kafka --env ZOOKEEPER_IP=zookeeper ches/kafka
-  docker run -d --network vcf-net --name function-engine --env IC_REDIS_INCLUDED=True --env IC_REDIS_HOST=redis --env IC_QUEUE_HOSTS=kafka:9092 -p ${ENGINE_PORT}:8080 sosoftware/function-engine:latest
+  docker run -d --network vcf-net --name kafka \
+                --env ZOOKEEPER_IP=zookeeper ches/kafka
+  docker run -d --network vcf-net --name function-engine \
+                --env IC_REDIS_INCLUDED=True \
+                --env IC_REDIS_HOST=redis \
+                --env IC_QUEUE_HOSTS=kafka:9092 \
+                -p ${ENGINE_PORT}:8080 \
+                sosoftware/function-engine:latest
 
 
-  for i in {3..5}; do
+  for ID in {3..5}; do
     mkdir -p "/tmp/apps/vcf$ID"
     docker run -d --network vcf-net \
                   --name "vcfjs$ID" \
@@ -26,7 +32,7 @@ if [ "$1" != "stop" ]; then
   echo "foo" > "/tmp/apps/vcf4/A"
   echo "bar" > "/tmp/apps/vcf4/B"
 
-  for i in {1..2}; do
+  for ID in {1..2}; do
     docker run -d --network vcf-net --name "hello$ID" -p 8080 registry.sosoftware.pl/tfe/hello-rest
     docker run -d --network vcf-net \
                   --name "vcfjs$ID" \
