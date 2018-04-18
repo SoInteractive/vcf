@@ -47,7 +47,7 @@ if [ "$1" != "stop" ]; then
     #curl -X PUT localhost:$PORT/repositories/A 
   done
   
-  docker exec redis bash -c 'redis-cli SADD http-A "vcfjs1" && redis-cli SADD http-B "vcfjs1" "vcfjs2" && redis-cli SADD http-C "vcfjs1" && redis-cli SADD file-A "vcfjs3" "vcfjs4" && redis-cli SADD file-B "vcfjs4"'
+  docker exec redis bash -c 'redis-cli SADD http-A "vcfjs1" && redis-cli SADD http-B "vcfjs1" "vcfjs2" && redis-cli SADD http-C "vcfjs1" && redis-cli SADD file-A "vcfjs3" "vcfjs4" && redis-cli SADD file-B "vcfjs4" && redis-cli SET vcfjs1 "http" && redis-cli SET vcfjs2 "http" && redis-cli SET vcfjs3 "file" && redis-cli SET vcfjs4 "file" && redis-cli SET vcfjs5 "file"'
 
   echo
   echo -e "\e[32mRUNNING!\e[0m"
