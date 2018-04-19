@@ -5,4 +5,4 @@ notifications:
 services:
   - docker
 script:
-  - docker run -v "$PWD:/mnt" koalaman/shellcheck {**,.}/*.sh
+  - docker run -v "$PWD:/mnt" koalaman/shellcheck run.sh
