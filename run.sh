@@ -46,7 +46,7 @@ if [ "$1" != "stop" ]; then
     # PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "8080/tcp") 0).HostPort}}' "hello$ID")
     # curl -X PUT localhost:$PORT/repositories/A 
   done
-  
+  # shellcheck disable=SC1004
   docker exec redis bash -c 'redis-cli SADD http-A vcfjs1 && \
                              redis-cli SADD http-B vcfjs1 vcfjs2 && \
                              redis-cli SADD http-C vcfjs1 && \
