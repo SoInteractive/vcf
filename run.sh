@@ -9,7 +9,7 @@ if [ "$1" != "stop" ]; then
   docker run -d --network vcf-net --name kafka \
                 --env ZOOKEEPER_IP=zookeeper ches/kafka
   docker run -d --network vcf-net --name function-engine \
-                --env IC_REDIS_INCLUDED=True \
+                --env IC_REDIS_INCLUDED=true \
                 --env IC_REDIS_HOST=redis \
                 --env IC_QUEUE_HOSTS=kafka:9092 \
                 -p ${ENGINE_PORT}:8080 \
